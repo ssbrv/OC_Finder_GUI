@@ -35,8 +35,8 @@ app.whenReady().then(() => {
 
 ipcMain.handle("run-oc-finder", async (_, width, height, filePath) => {
   return new Promise((resolve) => {
-    // TODO: move to env
-    const scriptPath = "C:/Users/LMA/OC_Finder/run_oc_finder.bat";
+    require("dotenv").config();
+    const scriptPath = path.normalize(process.env.SCRIPT_PATH);
 
     const process = spawn(scriptPath, [width, height, filePath], {
       shell: true,
