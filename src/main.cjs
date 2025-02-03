@@ -23,10 +23,10 @@ app.whenReady().then(() => {
   if (IS_DEV) {
     mainWindow.loadURL("http://localhost:5173");
     mainWindow.webContents.openDevTools();
-  } else
-    mainWindow.loadURL(
-      `file://${path.join(__dirname, "..", "dist", "index.html")}`
-    );
+  } else {
+    const url = `file://${path.join(__dirname, "..", "dist", "index.html")}`;
+    mainWindow.loadURL(url);
+  }
 
   mainWindow.on("closed", () => {
     mainWindow = null;

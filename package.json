@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && electron-builder --win",
+    "build:linux": "vite build && electron-builder --linux",
+    "build:win": "vite build && electron-builder --win",
+    "build": "vite build && electron-builder",
     "lint": "eslint .",
     "preview": "vite preview",
     "electron": "IS_IN_DEVELOPMENT=true electron ."
@@ -45,7 +47,14 @@
     },
     "win": {
       "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
     }
   },
-  "main": "src/main.cjs"
+  "main": "src/main.cjs",
+  "author": {
+    "email": "sabirov.astana@gmail.com",
+    "name": "Daniyar Sabirov"
+  }
 }
