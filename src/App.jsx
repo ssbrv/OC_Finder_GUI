@@ -9,6 +9,8 @@ function App() {
   const [error, setError] = useState("");
 
   const scriptPath = import.meta.env.VITE_SCRIPT_PATH;
+  const ocFinderPath = import.meta.env.VITE_OC_FINDER_PATH;
+  const condaActivatePath = import.meta.env.VITE_CONDA_ACTIVATE_PATH;
 
   const handleRun = async (e) => {
     e.preventDefault();
@@ -24,7 +26,9 @@ function App() {
         width,
         height,
         filePath,
-        scriptPath
+        scriptPath,
+        ocFinderPath,
+        condaActivatePath
       );
       setOutput(result);
     } catch (e) {

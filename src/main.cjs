@@ -35,13 +35,25 @@ app.whenReady().then(() => {
 
 ipcMain.handle(
   "run-oc-finder",
-  async (_, width, height, filePath, scriptPath) => {
+  async (
+    _,
+    width,
+    height,
+    filePath,
+    scriptPath,
+    ocFinderPath,
+    condaActivatePath
+  ) => {
     return new Promise((resolve) => {
       const scriptPathNormalized = path.normalize(scriptPath);
 
-      const process = spawn(scriptPathNormalized, [width, height, filePath], {
-        shell: true,
-      });
+      const process = spawn(
+        scriptPathNormalized,
+        [width, height, filePath, ocFinderPath, condaActivatePath],
+        {
+          shell: true,
+        }
+      );
 
       let output = "";
       process.stdout.on("data", (data) => {
