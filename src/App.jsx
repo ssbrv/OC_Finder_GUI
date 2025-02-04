@@ -15,6 +15,7 @@ function App() {
   const handleRun = async (e) => {
     e.preventDefault();
     setError("");
+    setOutput("");
     setIsLoading(true);
     try {
       if (window.electron === undefined) {
@@ -45,30 +46,58 @@ function App() {
         onSubmit={handleRun}
       >
         <h1 className="text-xl font-bold">OC_Finder GUI</h1>
-        <input
-          type="number"
-          placeholder="Width"
-          value={width}
-          onChange={(e) => setWidth(e.target.value)}
-          className="rounded-md border px-3 py-2"
-          required
-        />
-        <input
-          type="number"
-          placeholder="Height"
-          value={height}
-          onChange={(e) => setHeight(e.target.value)}
-          className="rounded-md border px-3 py-2"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Full path to the photo"
-          value={filePath}
-          onChange={(e) => setFilePath(e.target.value)}
-          className="rounded-md border px-3 py-2"
-          required
-        />
+
+        <p>
+          After submitting the form by pressing the "Run" button expect to see a
+          spinner within the "Run" button for a bit. This represents a loading
+          state, meaning OC_Finder is currently running.
+        </p>
+        <p>
+          After the spinner disappears expect to see program logs. If the
+          program finishes successfully the output will be available at:
+          <br />
+          {ocFinderPath}/Predict_Result/[Name of the original photo]
+        </p>
+        <p>
+          If running a program on the same photo, it's advised to delete/move
+          previous output if any:
+          <br />
+          {ocFinderPath}/Predict_Result/[Name of the original photo]
+        </p>
+
+        <div className="flex flex-col gap-1">
+          <label>Width</label>
+          <input
+            type="number"
+            value={width}
+            onChange={(e) => setWidth(e.target.value)}
+            className="rounded-md border px-3 py-2"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label>Height</label>
+          <input
+            type="number"
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
+            className="rounded-md border px-3 py-2"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label>Full path to the photo</label>
+          <input
+            type="text"
+            placeholder='Including quotes, for e.g: "/path/to the/photo"'
+            value={filePath}
+            onChange={(e) => setFilePath(e.target.value)}
+            className="rounded-md border px-3 py-2"
+            required
+          />
+        </div>
         <div className="flex">
           <button
             className={`flex items-center gap-4 bg-black text-white py-2 rounded-md px-24 ml-auto font-bold text-lg ${
