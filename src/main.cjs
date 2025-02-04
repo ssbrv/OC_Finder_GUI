@@ -33,24 +33,26 @@ app.whenReady().then(() => {
   });
 });
 
-ipcMain.handle("run-oc-finder", async (_, width, height, filePath) => {
-  return new Promise((resolve) => {
-    require("dotenv").config();
-    const scriptPath = path.normalize(process.env.SCRIPT_PATH);
+ipcMain.handle(
+  "run-oc-finder",
+  async (_, width, height, filePath, scriptPath) => {
+    return new Promise((resolve) => {
+      const scriptPathNormalized = path.normalize(scriptPath);
 
-    const process = spawn(scriptPath, [width, height, filePath], {
-      shell: true,
+      const process = spawn(scriptPathNormalized, [width, height, filePath], {
+        shell: true,
+      });
+
+      let output = "";
+      process.stdout.on("data", (data) => {
+        output += data.toString();
+      });
+
+      process.stderr.on("data", (data) => {
+        output += data.toString();
+      });
+
+      process.on("close", () => resolve(output));
     });
-
-    let output = "";
-    process.stdout.on("data", (data) => {
-      output += data.toString();
-    });
-
-    process.stderr.on("data", (data) => {
-      output += data.toString();
-    });
-
-    process.on("close", () => resolve(output));
-  });
-});
+  }
+);

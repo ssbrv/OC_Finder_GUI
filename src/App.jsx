@@ -8,6 +8,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const scriptPath = import.meta.env.VITE_SCRIPT_PATH;
+
   const handleRun = async (e) => {
     e.preventDefault();
     setError("");
@@ -18,7 +20,12 @@ function App() {
         return;
       }
 
-      const result = await window.electron.runScript(width, height, filePath);
+      const result = await window.electron.runScript(
+        width,
+        height,
+        filePath,
+        scriptPath
+      );
       setOutput(result);
     } catch (e) {
       setError(e.message);
